@@ -23,4 +23,15 @@ const total = arr1.reduce(
   (acc, curr, idx) => acc + Math.abs(curr - arr2[idx]),
   0
 );
-console.log(total);
+const arr2CountObj: { [key: string]: number } = {};
+
+arr2.forEach((el) => {
+  const stringifiedKey = '' + el;
+  arr2CountObj[stringifiedKey] = (arr2CountObj[stringifiedKey] || 0) + 1;
+});
+let count = 0;
+arr1.forEach((el) => {
+  const stringifiedKey = '' + el;
+  count += (arr2CountObj[stringifiedKey] || 0) * el;
+});
+console.log(count);
