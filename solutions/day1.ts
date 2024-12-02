@@ -1,10 +1,7 @@
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'node:path';
 import assert from 'node:assert';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { readTestFileContentForDay } from '../utils/index';
 
-const fileContent = readFileSync(path.join(__dirname, './test.txt'), 'utf-8');
+const fileContent = readTestFileContentForDay(1);
 const arr1: number[] = [];
 const arr2: number[] = [];
 
