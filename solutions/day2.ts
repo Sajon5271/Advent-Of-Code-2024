@@ -8,6 +8,18 @@ let totalSafe = 0;
 fileContent.split('\n').forEach((line) => {
   const numbers = line.split(' ').map((el) => parseInt(el));
   assert(numbers.length > 1);
+  if (isSafeSequece(numbers)) totalSafe++;
+  else {
+    const altNumberLists = numbers.map((_, idx, arr) => {
+      return [...arr].toSpliced(idx, 1);
+    });
+    if (altNumberLists.some((list) => isSafeSequece(list))) {
+      totalSafe++;
+    }
+  }
+});
+
+function isSafeSequece(numbers: number[]) {
   const currentDirection =
     (numbers[1] - numbers[0]) / Math.abs(numbers[1] - numbers[0]);
   for (let i = 0; i < numbers.length - 1; i++) {
@@ -18,10 +30,9 @@ fileContent.split('\n').forEach((line) => {
       absouluteDiff < 1 ||
       absouluteDiff > 3
     ) {
-      return;
+      return false;
     }
   }
-  totalSafe++;
-});
-
+  return true;
+}
 console.log(totalSafe);
