@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch solutions/day3.ts"
+    "start": "tsx watch solutions/day4.ts"
   },
   "keywords": [],
   "author": "",
