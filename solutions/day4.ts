@@ -46,3 +46,19 @@ for (let i = 0; i <= linesOfInput.length - 4; i++) {
   }
 }
 console.log('Total found: ', total);
+// Start of second part
+let part2Total = 0;
+for (let i = 0; i <= linesOfInput.length - 3; i++) {
+  const line1 = individulaCharactersOfLine[i];
+  const line2 = individulaCharactersOfLine[i + 1];
+  const line3 = individulaCharactersOfLine[i + 2];
+  for (let j = 0; j <= lineLength - 3; j++) {
+    // Construct '\' of x
+    const left = `${line1[j]}${line2[j + 1]}${line3[j + 2]}`;
+    const right = `${line1[j + 2]}${line2[j + 1]}${line3[j]}`;
+    if ((left === 'MAS' || left === 'SAM') && (right === 'MAS' || right === 'SAM')) {
+      part2Total++;
+    }
+  }
+}
+console.log('Part two total: ', part2Total);
