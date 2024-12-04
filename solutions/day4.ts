@@ -55,6 +55,7 @@ for (let i = 0; i <= linesOfInput.length - 3; i++) {
   for (let j = 0; j <= lineLength - 3; j++) {
     // Construct '\' of x
     const left = `${line1[j]}${line2[j + 1]}${line3[j + 2]}`;
+    // Construct '/' of x
     const right = `${line1[j + 2]}${line2[j + 1]}${line3[j]}`;
     if ((left === 'MAS' || left === 'SAM') && (right === 'MAS' || right === 'SAM')) {
       part2Total++;
