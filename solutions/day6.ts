@@ -3,7 +3,8 @@ import { readTestFileContentForDay } from '../utils/index';
 
 const fileContent = readTestFileContentForDay(6);
 const mapGrid = fileContent.split('\n').map((el) => el.split(''));
-const guardStartPos = '^';
+const startingMark = '^';
+const visitedMark = 'X';
 const obstacle = '#';
 const directions = [
   { symbol: '^', dir: [0, -1] },
@@ -15,7 +16,7 @@ const directions = [
 let startingPosition: [number, number] | undefined;
 for (let i = 0; i < mapGrid.length; i++) {
   for (let j = 0; j < mapGrid.length; j++) {
-    if (mapGrid[i][j] === guardStartPos) {
+    if (mapGrid[i][j] === startingMark) {
       startingPosition = [j, i];
       break;
     }
@@ -27,8 +28,7 @@ for (let i = 0; i < mapGrid.length; i++) {
 if (startingPosition) {
   let iter = 0;
   let currentPosition = startingPosition;
-  mapGrid[currentPosition[1]][currentPosition[0]] = 'X';
-  let currentDirectionIndex = directions.findIndex((el) => el.symbol === guardStartPos);
+  let currentDirectionIndex = directions.findIndex((el) => el.symbol === startingMark);
   if (currentDirectionIndex === -1) throw new Error('Could not find direction');
 
   while (checkInBounds(currentPosition[0], currentPosition[1])) {
@@ -44,7 +44,7 @@ if (startingPosition) {
       continue;
     }
     currentPosition = [x, y];
-    mapGrid[y][x] = 'X';
+    mapGrid[y][x] = visitedMark;
     iter++;
   }
 }
@@ -56,6 +56,6 @@ function checkInBounds(x: number, y: number) {
 console.log(
   'Part 1 solution: ',
   mapGrid.reduce((acc, curr) => {
-    return acc + curr.reduce((a, c) => (c === 'X' ? ++a : a), 0);
+    return acc + curr.reduce((a, c) => (c === visitedMark || c === startingMark ? ++a : a), 0);
   }, 0)
 );
