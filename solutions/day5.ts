@@ -27,4 +27,30 @@ printOrders.split('\n').forEach((order) => {
   }
 });
 
-console.log('Counted Toatal: ', total);
+console.log('Counted Total: ', total);
+
+const sortingFunction = (a: string, b: string) => {
+  if (printOrderMap[a]?.includes(b)) {
+    return -1;
+  }
+  return 0;
+};
+
+let part2Total = 0;
+printOrders.split('\n').forEach((order) => {
+  const splitPageNumbers = order.split(',');
+  let error = false;
+  for (let i = 0; i < splitPageNumbers.length; i++) {
+    if (splitPageNumbers.slice(i + 1).some((el) => printOrderMap[splitPageNumbers[i]]?.includes(el))) {
+      error = true;
+      break;
+    }
+  }
+  if (error) {
+    const sortedNumber = splitPageNumbers.toSorted(sortingFunction);
+    assert(sortedNumber.length % 2);
+    part2Total += parseInt(sortedNumber[Math.floor(sortedNumber.length / 2)]);
+  }
+});
+
+console.log('Part 2 Ans: ', part2Total);
